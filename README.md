@@ -28,23 +28,32 @@ export TAP_POSTGRES_PASSWORD=my_password
 ```
 7. Start Postgres
 ```shell
+cd postgres
+
 nerdctl compose up
 ```
 8. Create Pagila database
 ```shell
-nerdctl exec -it meltano-sandbox_db_1 psql -U postgres
-postgres=# CREATE DATABASE pagila;
+nerdctl exec -it pg psql -U postgres
+
+CREATE DATABASE pagila;
 ```
 9. Create Pagila schema and insert all data
 ```shell
-cat pagila/pagila-schema.sql | nerdctl exec -i meltano-sandbox_db_1 psql -U postgres -d pagila
-cat pagila/pagila-data.sql | nerdctl exec -i meltano-sandbox_db_1 psql -U postgres -d pagila
+cat pagila/pagila-schema.sql | nerdctl exec -i pg psql -U postgres -d pagila
+cat pagila/pagila-data.sql | nerdctl exec -i pg psql -U postgres -d pagila
 ```
 10. Add sink
 ```shell
-meltano add loader target-csv
+meltano add loader target-jsonl
 ```
 11. Start ELT pipeline
 ```shell
-meltano elt tap-postgres target-csv --job_id=postgres-to-csv-cdc
+meltano elt tap-postgres target-jsonl --job_id=postgres-to-jsonl-cdc
 ```
+
+
+
+# TODO
+- Snowflake
+- Blogpost

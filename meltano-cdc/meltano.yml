@@ -14,7 +14,7 @@ plugins:
       default_replication_method: FULL_TABLE
     metadata:
       actor:
-        replication-method: FULL_TABLE
+        replication-method: LOG_BASED
   loaders:
   - name: target-jsonl
     variant: andyh1203
