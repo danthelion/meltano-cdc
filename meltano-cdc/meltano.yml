@@ -1,0 +1,27 @@
+version: 1
+project_id: 8b60f84e-01c3-4720-af7e-5ff33d11d9f1
+plugins:
+  extractors:
+  - name: tap-postgres
+    variant: transferwise
+    pip_url: pipelinewise-tap-postgres
+    config:
+      host: localhost
+      port: 5432
+      user: postgres
+      dbname: pagila
+      filter_schemas: public
+      default_replication_method: FULL_TABLE
+    metadata:
+      actor:
+        replication-method: FULL_TABLE
+  loaders:
+  - name: target-jsonl
+    variant: andyh1203
+    pip_url: target-jsonl
+    config:
+      destination_path: /Users/daniel.palma/BDC/meltano-sandbox/meltano-cdc/cdc_output
+environments:
+- name: dev
+- name: staging
+- name: prod
