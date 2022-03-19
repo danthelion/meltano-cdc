@@ -9,18 +9,28 @@ plugins:
       host: localhost
       port: 5432
       user: postgres
+      password: postgres
       dbname: pagila
       filter_schemas: public
-      default_replication_method: FULL_TABLE
-    metadata:
-      actor:
-        replication-method: LOG_BASED
+      default_replication_method: LOG_BASED
   loaders:
   - name: target-jsonl
     variant: andyh1203
     pip_url: target-jsonl
     config:
-      destination_path: /Users/daniel.palma/BDC/meltano-sandbox/meltano-cdc/cdc_output
+      destination_path: cdc_output
+  - name: target-snowflake
+    variant: transferwise
+    pip_url: pipelinewise-target-snowflake
+    config:
+      account: snowflake-account
+      dbname: MELTANO_CDC
+      user: meltano
+      password: xxx
+      warehouse: COMPUTE_WH
+      file_format: MELTANO_CDC.CDC.MELTANO_CDC_CSV
+      default_target_schema: CDC
+      add_metadata_columns: true
 environments:
 - name: dev
 - name: staging

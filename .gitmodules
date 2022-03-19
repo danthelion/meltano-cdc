@@ -1,3 +1,6 @@
 [submodule "postgres/pagila"]
 	path = postgres/pagila
 	url = git@github.com:devrimgunduz/pagila.git
+[submodule "postgres/postgres/pagila"]
+	path = postgres/postgres/pagila
+	url = git@github.com:devrimgunduz/pagila.git
